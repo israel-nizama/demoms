@@ -1,8 +1,8 @@
-#Solución demoms en .Net Core 6 para demo de microservicios
+# Solución demoms en .Net Core 6 para demo de microservicios
 
-##Crear contenedores de base de datos de los microservicios
+## Crear contenedores de base de datos de los microservicios
 
-###DiscountDB
+### DiscountDB
 ```
 docker container run --env "ACCEPT_EULA=Y" --env "SA_PASSWORD=@dm1n2023!" --env "MSSQL_PID=Express" --publish 1450:1433 --volume VolDiscount:/var/opt/mssql --name SQLDiscount --detach mcr.microsoft.com/mssql/server:2019-latest
 docker exec -it SQLDiscount /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P @dm1n2023!
@@ -10,7 +10,7 @@ docker exec -it SQLDiscount /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P @d
 2> GO
 1> exit
 ```
-###ShoppingBasketDB
+### ShoppingBasketDB
 ```
 docker container run --env "ACCEPT_EULA=Y" --env "SA_PASSWORD=@dm1n2023!" --env "MSSQL_PID=Express" --publish 1460:1433 --volume VolShoppingBasket:/var/opt/mssql --name SQLShoppingBasket --detach mcr.microsoft.com/mssql/server:2019-latest
 docker exec -it SQLShoppingBasket /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P @dm1n2023!
@@ -18,7 +18,7 @@ docker exec -it SQLShoppingBasket /opt/mssql-tools/bin/sqlcmd -S localhost -U sa
 2> GO
 1> exit
 ```
-###OrdersDB
+### OrdersDB
 ```
 docker container run --env "ACCEPT_EULA=Y" --env "SA_PASSWORD=@dm1n2023!" --env "MSSQL_PID=Express" --publish 1470:1433 --volume VolOrders:/var/opt/mssql --name SQLOrders --detach mcr.microsoft.com/mssql/server:2019-latest
 docker exec -it SQLOrders /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P @dm1n2023!
@@ -26,3 +26,13 @@ docker exec -it SQLOrders /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P @dm1
 2> GO
 1> exit
 ```
+
+## Crear tópicos y subscripción en Azure Service Bus
+Guia:
+[Get started with Azure Service Bus topics and subscriptions (.NET)](https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-dotnet-how-to-use-topics-subscriptions?tabs=connection-string)
+### Crear Tópicos
+checkoutmessage
+orderpaymentrequestmessage
+orderpaymentupdatedmessage
+### Crear Subscripcion
+Crear subscripción con el nombre "ordersubscription" a los tópicos checkoutmessage y orderpaymentupdatedmessage 
